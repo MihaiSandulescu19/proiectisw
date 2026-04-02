@@ -1,0 +1,97 @@
+<DOCTYPE html>
+<html>
+    <head>
+	<link rel="stylesheet" href="stilizare.css"/>
+	<meta charset="UTF-8">
+      <title>Visit Campulung Muscel</title>
+	</head>
+	<body>
+	<div class="main-container">
+    <img src="https://github.com/MihaiSandulescu19/proiectisw/blob/main/WhatsApp%20Image%202026-03-20%20at%2008.19.37.jpeg?raw=true" style="width: 100%; max-width: 800px; border-radius: 15px;">
+    
+    <h1>Bine ați venit în Câmpulung Muscel!</h1>
+    
+    <p>Descoperiți prima capitală a Țării Românești, un oraș unde istoria se împletește cu peisajele montane și tradițiile vii ale zonei.</p>
+    
+    <p>Abonați-vă la newsletter pentru a fi la curent cu ultimele evenimente și noutăți din orașul nostru.</p>
+
+<div id="abonare" class="button-group">
+    <a href="javascript:void(0);" onclick="alert('Mulțumim pentru abonare!')" class="btn btn-filled">Abonare</a>
+    
+    <a href="Despre.html" class="btn btn-outline">Despre</a>
+    
+    <a href="cumajung.html" class="btn btn-outline">Cum ajung</a>
+</div>
+</div>
+
+
+
+<div id="intro-overlay">
+  <video id="video-intro" autoplay muted playsinline preload="metadata">
+    <source src="https://www.dropbox.com/scl/fi/0tqc120z24yd2ai8o9aju/C-mpulung-Muscel-A-City-Seeking-Its-Past-online-video-cutter.com.mp4?rlkey=n4f7fp7tvf7dpb985hlri6rgl&st=7cqvuplc&dl=1" type="video/mp4">
+  </video>
+  <button id="skip-btn" onclick="skipIntro()">SKIP INTRO</button>
+</div>
+
+<div id="continut-site" style="display:none; opacity:0;">
+    </div>
+
+  <script>
+function skipIntro() {
+  const intro = document.getElementById('intro-overlay');
+  const site = document.getElementById('continut-site');
+  const video = document.getElementById('video-intro');
+  const btn = document.getElementById('skip-btn');
+
+  if (btn) btn.style.display = 'none';
+  if (intro) intro.classList.add('intro-hidden');
+
+  if (site) {
+    site.style.display = 'block';
+    site.classList.remove('reveal-site');
+    void site.offsetWidth;
+    site.classList.add('reveal-site');
+  }
+
+  setTimeout(() => {
+    if (video) {
+      video.pause();
+      video.src = "";
+      video.load();
+    }
+    if (intro) intro.style.display = 'none';
+  }, 1000);
+}
+
+window.onload = function() {
+  const intro = document.getElementById('intro-overlay');
+  const site = document.getElementById('continut-site');
+  const video = document.getElementById('video-intro');
+  const btn = document.getElementById('skip-btn');
+
+  const vineDinInterior = sessionStorage.getItem('venit_din_site');
+
+  if (vineDinInterior === 'true') {
+    sessionStorage.removeItem('venit_din_site');
+    if (intro) intro.style.display = 'none';
+    if (site) {
+      site.style.display = 'block';
+      site.style.opacity = '1';
+    }
+  } else {
+    if (intro) intro.style.display = 'flex';
+    if (video) {
+      video.play().catch(e => {
+        if(btn) btn.style.display = 'block';
+      });
+      video.onended = skipIntro;
+    }
+    setTimeout(() => { 
+      if(btn) btn.style.display = 'block'; 
+    }, 3000);
+  }
+};
+</script>
+</body>
+
+    
